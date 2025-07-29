@@ -1,7 +1,7 @@
 from dagster import asset, Definitions
 import pandas as pd
+import os 
 from minio import Minio
-import os
 from sqlalchemy import create_engine
 
 # Configuration
@@ -77,7 +77,28 @@ def transform_data(extract_from_minio):
 
     df['calc_col'] = df['S_IN'] - df['S_OUT']
 
+
+
     return df
+
+
+@asset
+def load_calc_col_to_postgres(transform_data):
+    df = transform_data
+
+    # Only select the calc_col column
+    result_df = df[['calc_col']].copy()
+
+    # Connect to PostgreSQL (FIXED CONNECTION STRING)
+    engine = create_engine(
+        f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+    )
+
+    # Send to PostgreSQL as a new table
+    result_df.to_sql("calc_result", engine, if_exists="replace", index=False)
+    print("✅ Created 'calc_result' table in PostgreSQL with calculated values only.")
+    return "calc_result"
+
 
 @asset
 def load_to_postgres(transform_data):
@@ -93,5 +114,5 @@ def load_to_postgres(transform_data):
 
 # Register pipeline assets
 defs = Definitions(
-    assets=[extract_from_minio, transform_data, load_to_postgres]
+    assets=[extract_from_minio, transform_data, load_to_postgres, load_calc_col_to_postgres]
 )
