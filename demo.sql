@@ -1,0 +1,37 @@
+INSERT INTO balances_turnovers (
+    record_id,
+    asset_id,
+    infra_object_id,
+    account_type_code,
+    account_number,
+    opening_balance_currency,
+    closing_balance_currency,
+    debit_turnover_currency,
+    credit_turnover_currency,
+    opening_balance_equivalent,
+    closing_balance_equivalent,
+    debit_turnover_equivalent,
+    credit_turnover_equivalent,
+    debit_operation_count,
+    credit_operation_count,
+    closing_balance_quantity,
+    is_off_balance
+) VALUES (
+    '22222222-2222-2222-2222-222222222222',
+    '11111111-1111-1111-1111-111111111111',  -- должен существовать в asset_card
+    '33333333-3333-3333-3333-333333333333',
+    'CURRENT',
+    'ACC123456',
+    100000.00,
+    95000.00,
+    25000.00,
+    20000.00,
+    105000.00,
+    97000.00,
+    26000.00,
+    21000.00,
+    15,
+    10,
+    500.000,
+    false
+);

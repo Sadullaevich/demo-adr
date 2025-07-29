@@ -1,0 +1,30 @@
+name: non_financial_checkpoint
+config_version: 1.0
+template_name:
+module_name: great_expectations.checkpoint
+class_name: Checkpoint
+run_name_template: '%Y%m%d-%H%M%S-non-financial-run'
+expectation_suite_name:
+batch_request: {}
+action_list:
+  - name: store_results_in_openmetadata
+    action:
+      module_name: metadata.great_expectations.action
+      class_name: OpenMetadataValidationAction
+      config_file_path: C:/Users/LENOVO/Desktop/Sh/demo/demo/demo-project/config
+      database_service_name: DEMO
+      database_name: demo
+      table_name: demo
+      schema_name: public
+evaluation_parameters: {}
+runtime_configuration: {}
+validations:
+  - batch_request:
+      datasource_name: non_financial_source
+      data_asset_name: non_financial_asset
+      options: {}
+      batch_slice:
+    expectation_suite_name: non_financial_suite
+profilers: []
+ge_cloud_id:
+expectation_suite_ge_cloud_id:

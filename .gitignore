@@ -1,0 +1,24 @@
+# Docker volumes and DB files (avoid duplicating this line)
+docker-volume/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dagster temp and local state
+.dagster/
+.tmp_dagster_home_*/
+
+# Virtual environments
+venv/
+venv311/
+
+# IDE/editor configs
+.vscode/
+*.code-workspace
+
+# OS-related
+.DS_Store
+Thumbs.db
